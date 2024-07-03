@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProjectController;
 use App\Models\User;
 use App\Models\Address;
 use App\Models\Image;
@@ -51,9 +52,9 @@ Route::get('/belongstomany', function(){
 
     
 
-    $user = User::find(1);
-    $product= Product::find(2);
-    $role= Role::find(2);
+    // $user = User::find(1);
+    // $product= Product::find(2);
+    // $role= Role::find(2);
     //$image=Image::find(1);
 
     //  $user->image()->create([
@@ -85,14 +86,22 @@ Route::get('/belongstomany', function(){
     //]);
    // return $user->image;
 
-   $project = Project::findOrFail(1);
+//    $project = Project::findOrFail(1);
 
-    $deployments = $project->deployments;
+//     $deployments = $project->deployments;
     //return view('relation', compact('deployments'));
     //return view('relation')->with('deployments', $deployments);
-    return view('relation', ['deployments'=>$deployments]);
+   // return view('relation', ['deployments'=>$deployments]);
 });
 
 
-Route::get('/product', [ProductController::class, 'index']);
+Route::get('/product', [ProductController::class, 'index'])->name('product');
+Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+Route::get('/product/{product}/delete', [ProductController::class, 'delete'])->name('product.delete');
+Route::post('/product/{id}/update', [ProductController::class, 'update'])->name('product.update');
 Route::post('/product/create', [ProductController::class, 'store']);
+
+
+
+Route::get('/project', [ProjectController::class, 'index']);
+Route::post('/project/create', [ProjectController::class, 'store']);
